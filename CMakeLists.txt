@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.2)
+set(PROJ_NAME "cputop")
+project(${PROJ_NAME} C)
+
+set(CMAKE_C_STANDARD 17)
+#set(CMAKE_C_FLAGS "-pthread -Weverything -Wdeclaration-after-statement -Wdate-time")
+set(CMAKE_C_FLAGS "-pthread -Wall -pedantic -g -Werror -lm")
+add_subdirectory(src)
+
+add_executable(${PROJ_NAME} main.c)
+enable_testing()
+target_link_libraries(${PROJ_NAME} PUBLIC "cputoplib")
+target_link_libraries(${PROJ_NAME} PUBLIC "logger")
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+find_package(cmocka 1.1.0 REQUIRED)
+include(${CMAKE_SOURCE_DIR}/cmake/Modules/AddCMockaTest.cmake)
+add_subdirectory(test)
