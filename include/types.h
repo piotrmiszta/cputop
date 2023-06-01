@@ -1,8 +1,11 @@
 #ifndef TYPES_H
 #define TYPES_H
 #include <stdio.h>
+#include "queue.h"
+#include <stdbool.h>
+#define MAX_READER_QUEUE    10
 
-typedef unsigned int ui;
+typedef long long unsigned int ui;
 
 typedef struct CPU {
     char name[7]; // CPUXX
@@ -19,9 +22,16 @@ typedef struct CPU {
 }CPU;
 
 typedef struct CPU_TAB{
-    CPU cpu0;
     CPU* cpu_tab;
     size_t size;
 }CPU_TAB;
+
+
+typedef struct Data{
+    CPU_TAB cpus;
+    Queue* queue_read;      //reader read here data
+    Queue* queue_analysis;  //after analaizer
+
+}Data;
 
 #endif //TYPES_H
