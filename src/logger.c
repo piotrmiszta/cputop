@@ -28,14 +28,16 @@ static pthread_mutex_t mutex;
 static sem_t empty;
 static sem_t full;
 static bool thread_run = true;
+
 static void logger_clean(void);
+
 void logger_init(void) {
     pthread_mutex_init(&mutex, NULL);
     sem_init(&empty, 0, 10);
     sem_init(&full, 0, 0);
     que = queue_create(free);
 }
-static void logger_print();
+static void logger_print(FILE* stream);
 
 void* logger_thread(void* arg) {
     assert(arg);
@@ -145,5 +147,4 @@ static void logger_clean(void) {
     sem_destroy(&full);
     sem_destroy(&empty);
     pthread_mutex_destroy(&mutex);
-
 }
